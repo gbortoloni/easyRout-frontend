@@ -1,16 +1,41 @@
 .map {
-    height: 400px;
-    width: 40%;
+  height: 100%;
+  /* width: 80%; */
 }
 
-.teste {
-    height: 100%;
-    width: 100%;
+.tabela {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.formulario {
+  /* width: 20%; */
+  /* height: 100%; */
+  /* margin-bottom: 10px; */
+}
+
+.buttonInside {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.find {
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  border: none;
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  outline: none;
+  text-align: center;
+  font-weight: bold;
+  padding: 1px;
 }
 
 .container {
-    margin: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
