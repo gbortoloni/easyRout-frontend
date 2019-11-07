@@ -3,9 +3,9 @@ import { Col, Row, Button, Form, FormGroup, Input } from "reactstrap";
 import axios from "axios";
 
 export default function DeliveriesForm({ addDelivery }) {
-  const API_KEY = "AIzaSyCOi3ME8PSOY24X9tcFvC8s6vwLPS4-iLs";
   const googleGeolocation =
     "https://maps.googleapis.com/maps/api/geocode/json?address=";
+  const [apiKey, setApiKey] = useState({ API_KEY: "" });
 
   const [data, setData] = useState({
     delivery: {
@@ -35,8 +35,38 @@ export default function DeliveriesForm({ addDelivery }) {
 
   const handleSubmit = e => {
     e.preventDefault();
+    const delivery = {
+      delivery: {
+        nomeCliente: "",
+        pesoCarga: "",
+        enderecoEntrega: {
+          logradouro: "",
+          numero: "",
+          bairro: "",
+          complemento: "",
+          cidade: "",
+          estado: "",
+          pais: "",
+          geolocalizacao: {
+            latitude: "",
+            longitude: ""
+          }
+        }
+      }
+    };
 
+    const nomeCliente = document.getElementById("nomeCliente");
+    nomeCliente.value = "";
+    const pesoEntrega = document.getElementById("pesoEntrega");
+    pesoEntrega.value = "";
+    const enderecoEntrega = document.getElementById("enderecoEntrega");
+    enderecoEntrega.value = "";
+    const latitude = document.getElementById("latitude");
+    latitude.value = "";
+    const longitude = document.getElementById("longitude");
+    longitude.value = "";
     addDelivery(data);
+    setData(delivery);
   };
 
   const handleLocation = e => {
@@ -48,7 +78,7 @@ export default function DeliveriesForm({ addDelivery }) {
     }
 
     const response = axios.get(
-      `${googleGeolocation}${endereco}&key=${API_KEY}`
+      `${googleGeolocation}${endereco}&key=${apiKey.API_KEY}`
     );
     response.then(resp => {
       const { results } = resp.data;
@@ -77,6 +107,15 @@ export default function DeliveriesForm({ addDelivery }) {
   return (
     <div className="formulario">
       <Form>
+        <FormGroup>
+          <Input
+            type="text"
+            name="apiKey"
+            id="apiKey"
+            placeholder="API KEY Google"
+            onChange={e => setApiKey({ ...apiKey, API_KEY: e.target.value })}
+          />
+        </FormGroup>
         <FormGroup>
           <Input
             type="text"

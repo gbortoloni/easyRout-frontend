@@ -8,8 +8,11 @@ import DeliveriesForm from "../deliveries/deliveriesForm";
 
 export default function Deliveries() {
   const BASE_URL = "http://localhost:3003/api";
+
   const [deliveries, setDeliveries] = useState([]);
   const [delivery, setDelivery] = useState([]);
+  const [remove, setRemove] = useState([]);
+
 
   async function fetchData() {
     const response = await axios.get(`${BASE_URL}/deliveries`);
@@ -24,6 +27,12 @@ export default function Deliveries() {
     });
   };
 
+  const removeDelivery = data => {
+    axios.delete(`${BASE_URL}/deliveries/${data._id}`).then(resp => {
+      setRemove(data);
+    })
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -31,6 +40,10 @@ export default function Deliveries() {
   useEffect(() => {
     fetchData();
   }, [delivery]);
+
+  useEffect(() => {
+    fetchData();
+  }, [remove]);
 
   return (
     <Row>
@@ -40,7 +53,10 @@ export default function Deliveries() {
       <Col xs="8">
         <Mapa deliveries={deliveries}></Mapa>
       </Col>
-      <DeliveriesList deliveries={deliveries}></DeliveriesList>
+      <DeliveriesList
+        deliveries={deliveries}
+        removeDelivery={removeDelivery}
+      ></DeliveriesList>
     </Row>
   );
 }

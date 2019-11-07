@@ -1,14 +1,20 @@
 import React from "react";
 import { Table, Button } from "reactstrap";
 
-export default function DeliveriesList({ deliveries }) {
+export default function DeliveriesList({ deliveries, removeDelivery }) {
   const countClientes = deliveries.length;
   const totalClientes = `Total de Clientes: ${countClientes}; `;
   const cargas = deliveries.map(delivery => delivery.pesoCarga);
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
   const somaCargas = cargas.reduce(reducer, 0);
   const totalCargas = `Peso Total: ${somaCargas} kg; `;
-  const media = `Ticket Médio: ${somaCargas / countClientes}`;
+  const media = `Ticket Médio: ${
+    countClientes === 0 ? 0 : somaCargas / countClientes
+  }`;
+
+  function remove(delivery) {
+    removeDelivery(delivery);
+  }
 
   function renderRows() {
     return deliveries.map(delivery => (
@@ -21,7 +27,7 @@ export default function DeliveriesList({ deliveries }) {
         <td>{delivery.enderecoEntrega.geolocalizacao.latitude}</td>
         <td>{delivery.enderecoEntrega.geolocalizacao.longitude}</td>
         <td>
-          <Button color="danger">
+          <Button onClick={() => remove(delivery)} color="danger">
             <i className="fa fa-trash-o"></i>
           </Button>
         </td>
