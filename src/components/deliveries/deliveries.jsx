@@ -9,7 +9,7 @@ import DeliveriesForm from "../deliveries/deliveriesForm";
 export default function Deliveries() {
   const BASE_URL = "http://localhost:3003/api";
   const [deliveries, setDeliveries] = useState([]);
-  let flag = false;
+  const [delivery, setDelivery] = useState([]);
 
   async function fetchData() {
     const response = await axios.get(`${BASE_URL}/deliveries`);
@@ -18,10 +18,9 @@ export default function Deliveries() {
     setDeliveries(data);
   }
 
-  const addDelivery = (data) => {
+  const addDelivery = data => {
     axios.post(`${BASE_URL}/deliveries`, data).then(resp => {
-      console.log(resp)
-      flag = true;
+      setDelivery(resp.data);
     });
   };
 
@@ -31,7 +30,7 @@ export default function Deliveries() {
 
   useEffect(() => {
     fetchData();
-  }, [addDelivery]);
+  }, [delivery]);
 
   return (
     <Row>

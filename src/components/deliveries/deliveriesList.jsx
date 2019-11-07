@@ -2,6 +2,14 @@ import React from "react";
 import { Table, Button } from "reactstrap";
 
 export default function DeliveriesList({ deliveries }) {
+  const countClientes = deliveries.length;
+  const totalClientes = `Total de Clientes: ${countClientes}; `;
+  const cargas = deliveries.map(delivery => delivery.pesoCarga);
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  const somaCargas = cargas.reduce(reducer, 0);
+  const totalCargas = `Peso Total: ${somaCargas} kg; `;
+  const media = `Ticket Médio: ${somaCargas / countClientes}`;
+
   function renderRows() {
     return deliveries.map(delivery => (
       <tr key={delivery._id}>
@@ -23,6 +31,11 @@ export default function DeliveriesList({ deliveries }) {
 
   return (
     <div className="tabela">
+      <h3>
+        {totalClientes}
+        {totalCargas}
+        {media}
+      </h3>
       <Table hover>
         <thead>
           <tr>

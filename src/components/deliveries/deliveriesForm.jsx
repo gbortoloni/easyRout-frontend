@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Col, Row, Button, Form, FormGroup, Input } from "reactstrap";
 import axios from "axios";
 
-export default function DeliveriesForm({addDelivery}) {
-  const API_KEY = "AIzaSyCOi3ME8PSOY24X9tcFvC8s6vwLPS4-iLs";  
+export default function DeliveriesForm({ addDelivery }) {
+  const API_KEY = "AIzaSyCOi3ME8PSOY24X9tcFvC8s6vwLPS4-iLs";
   const googleGeolocation =
     "https://maps.googleapis.com/maps/api/geocode/json?address=";
 
-    const [data, setData] = useState({
-      delivery: {
-        nomeCliente: "",
-        pesoCarga: "",
-        enderecoEntrega: {
-          logradouro: "",
-          numero: "",
-          bairro: "",
-          complemento: "",
-          cidade: "",
-          estado: "",
-          pais: "",
-          geolocalizacao: {
-            latitude: "",
-            longitude: ""
-          }
+  const [data, setData] = useState({
+    delivery: {
+      nomeCliente: "",
+      pesoCarga: "",
+      enderecoEntrega: {
+        logradouro: "",
+        numero: "",
+        bairro: "",
+        complemento: "",
+        cidade: "",
+        estado: "",
+        pais: "",
+        geolocalizacao: {
+          latitude: "",
+          longitude: ""
         }
       }
-    });
+    }
+  });
 
   let objeto = {
     nomeCliente: "",
@@ -33,13 +33,10 @@ export default function DeliveriesForm({addDelivery}) {
     enderecoEntrega: ""
   };
 
-  useEffect(() => {
-    // console.log(data);
-  }, []);
-
   const handleSubmit = e => {
     e.preventDefault();
-    addDelivery(data)
+
+    addDelivery(data);
   };
 
   const handleLocation = e => {
@@ -152,7 +149,9 @@ export default function DeliveriesForm({addDelivery}) {
         </Row>
         <Row form>
           <Col md={6}>
-            <Button onClick={handleSubmit} color="success">CADASTRAR CLIENTE</Button>
+            <Button onClick={handleSubmit} color="success">
+              CADASTRAR CLIENTE
+            </Button>
           </Col>
           <Col md={6}>
             <Button color="danger">RESETAR CADASTRO</Button>
